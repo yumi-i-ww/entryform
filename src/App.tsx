@@ -1,13 +1,9 @@
-import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { Layout } from "./layout/Layout";
 import IndexPage from "./pages";
 
-
-
 export default function App() {
-	// eslint-disable-next-line no-console
-	console.log(`
+  console.log(`
 		
 TTT                                        TTT
   TTT                                   TT
@@ -25,11 +21,11 @@ TTT                                        TTT
                       T  T
 
 		We're hiring!`);
-	return (
-		<Layout>
-			<Routes>
-				<Route path="/" element={<IndexPage />} />
-			</Routes>
-		</Layout>
-	);
+  return (
+    <Layout>
+      <Routes>
+        <Route path="/" element={<IndexPage />} />
+      </Routes>
+    </Layout>
+  );
 }
