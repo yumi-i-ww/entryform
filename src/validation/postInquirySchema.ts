@@ -7,17 +7,17 @@ export const postInquirySchema = z.object({
 
   email: z.string().email("正しいメールアドレスを入力してください"),
 
-  station: z.string(),
+  nearestStation: z.string(),
 
-  workTime: z.string(),
+  workingTime: z.string(),
 
   address: z.string(),
 
-  mediaCategory: z
+  websiteToLearnAboutUs: z
     .string()
     .nonempty("弊社を知るきっかけになった媒体を選択してください"),
 
-  employCategory: z.string().nonempty("応募する雇用形態を選択してください"),
+  employmentType: z.string().nonempty("応募する雇用形態を選択してください"),
 
   other: z.string(),
 });

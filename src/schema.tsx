@@ -21,12 +21,12 @@ export const Constaraint = z.object({
     .min(10, { message: "入力が必須の項目です" })
     .max(1000, { message: "1000文字以内で入力してください" })
     .regex(/^[^<>"'\\/]*$/, { message: "特殊文字は使用できません" }),
-  mediaCategory: z //セレクト
+  websiteToLearnAboutUs: z //セレクト
     .string()
     .min(10, { message: "入力が必須の項目です" })
     .max(1000, { message: "1000文字以内で入力してください" })
     .regex(/^[^<>"'\\/]*$/, { message: "特殊文字は使用できません" }),
-  employCategory: z
+  employmentType: z
     .string() //セレクト
     .min(10, { message: "入力が必須の項目です" })
     .max(1000, { message: "1000文字以内で入力してください" })
@@ -36,7 +36,7 @@ export const Constaraint = z.object({
     .min(10, { message: "入力が必須の項目です" })
     .max(1000, { message: "1000文字以内で入力してください" })
     .regex(/^[^<>"'\\/]*$/, { message: "特殊文字は使用できません" }),
-  station: z
+  nearestStation: z
     .string()
     .min(10, { message: "入力が必須の項目です" })
     .max(1000, { message: "1000文字以内で入力してください" })

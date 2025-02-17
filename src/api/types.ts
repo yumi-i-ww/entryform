@@ -69,43 +69,49 @@ export namespace Schemas {
          *
          * エントリー者の姓
          */
-        familyName: string;
+        familyName: string | null;
         /**
          * 名
          *
          * エントリー者の名
          */
-        firstName: string;
+        firstName: string | null;
         /**
          * 住所
          *
          * エントリー者の住所
          */
-        address: string;
+        address: string | null;
+        /**
+         * 雇用形態
+         *
+         * エントリー者の雇用形態
+         */
+        employmentType: string | null;
         /**
          * 最寄り駅
          *
          * エントリー者の最寄り駅
          */
-        nearestStation: string;
+        nearestStation: string | null;
         /**
          * 当社を知ったサイト
          *
          * 当社を知るきっかけになったサイト
          */
-        websiteToLearnAboutUs: string;
+        websiteToLearnAboutUs: string | null;
         /**
          * 勤務時間
          *
          * エントリー者の勤務時間
          */
-        workingTime: string;
+        workingTime: string | null;
         /**
          * その他
          *
          * その他の情報
          */
-        other: string;
+        other: string | null;
     }
     export interface EntrySchema {
         /**
@@ -126,12 +132,6 @@ export namespace Schemas {
          * データが更新された日時
          */
         updatedAt: string;
-        /**
-         * データタイプ
-         *
-         * エントリーのデータタイプはENTRY
-         */
-        dataType: string;
         /**
          * メールアドレス
          *
@@ -156,6 +156,12 @@ export namespace Schemas {
          * エントリー者の住所
          */
         address: string | null;
+        /**
+         * 雇用形態
+         *
+         * エントリー者の雇用形態
+         */
+        employmentType: string | null;
         /**
          * 最寄り駅
          *

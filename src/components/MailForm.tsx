@@ -18,9 +18,16 @@ import {
 } from "../validation/postInquirySchema";
 import { ConfirmDialog } from "./ConfirmDialog";
 import { LabelWidthContent } from "./ui/LabelWidthContent";
+import { apiClient } from "~/api/api-client";
 
-const employCategory = ["正社員", "契約社員", "アルバイト", "その他"];
-const mediaCategory = ["弊社HP", "Indeed", "engage", "OpenWork", "その他"];
+const employmentType = ["正社員", "契約社員", "アルバイト", "その他"];
+const websiteToLearnAboutUs = [
+  "弊社HP",
+  "Indeed",
+  "engage",
+  "OpenWork",
+  "その他",
+];
 const CustomTextField = styled(TextField)(() => ({}));
 
 export default function MailForm() {
@@ -50,6 +57,19 @@ export default function MailForm() {
     try {
       setIsSendLoading(true);
       // Simulate sending data
+      await apiClient.createEntry({
+        requestBody: {
+          familyName: inquiryData?.familyName ?? "",
+          firstName: inquiryData?.firstName ?? "",
+          email: inquiryData?.email ?? "",
+          address: inquiryData?.address ?? "",
+          nearestStation: inquiryData?.nearestStation ?? "",
+          workingTime: inquiryData?.workingTime ?? "",
+          websiteToLearnAboutUs: inquiryData?.websiteToLearnAboutUs ?? "",
+          employmentType: inquiryData?.employmentType ?? "",
+          other: inquiryData?.other ?? "",
+        },
+      });
       await new Promise((resolve) => setTimeout(resolve, 2000));
       alert("内容を送信しました。");
     } catch (error) {
@@ -116,24 +136,24 @@ export default function MailForm() {
             content={
               <FormControl fullWidth>
                 <Select
-                  {...register("employCategory")}
+                  {...register("employmentType")}
                   defaultValue={""}
                   sx={{
                     textAlign: "left",
                   }}
-                  error={Boolean(errors.employCategory)}
+                  error={Boolean(errors.employmentType)}
                 >
                   <MenuItem value="" disabled>
                     選択してください
                   </MenuItem>
-                  {employCategory.map((item) => (
+                  {employmentType.map((item) => (
                     <MenuItem key={item} value={item}>
                       {item}
                     </MenuItem>
                   ))}
                 </Select>
-                <FormHelperText error={Boolean(errors.employCategory)}>
-                  {errors.employCategory?.message}
+                <FormHelperText error={Boolean(errors.employmentType)}>
+                  {errors.employmentType?.message}
                 </FormHelperText>
               </FormControl>
             }
@@ -214,12 +234,12 @@ export default function MailForm() {
             content={
               <FormControl fullWidth>
                 <CustomTextField
-                  {...register("station")}
-                  error={Boolean(errors.station)}
+                  {...register("nearestStation")}
+                  error={Boolean(errors.nearestStation)}
                   placeholder="例）JR山手線 渋谷駅"
                 />
-                <FormHelperText error={Boolean(errors.station)}>
-                  {errors.station?.message}
+                <FormHelperText error={Boolean(errors.nearestStation)}>
+                  {errors.nearestStation?.message}
                 </FormHelperText>
               </FormControl>
             }
@@ -229,24 +249,24 @@ export default function MailForm() {
             content={
               <FormControl fullWidth>
                 <Select
-                  {...register("mediaCategory")}
+                  {...register("websiteToLearnAboutUs")}
                   defaultValue={""}
                   sx={{
                     textAlign: "left",
                   }}
-                  error={Boolean(errors.mediaCategory)}
+                  error={Boolean(errors.websiteToLearnAboutUs)}
                 >
                   <MenuItem value="" disabled>
                     選択してください
                   </MenuItem>
-                  {mediaCategory.map((item) => (
+                  {websiteToLearnAboutUs.map((item) => (
                     <MenuItem key={item} value={item}>
                       {item}
                     </MenuItem>
                   ))}
                 </Select>
-                <FormHelperText error={Boolean(errors.mediaCategory)}>
-                  {errors.mediaCategory?.message}
+                <FormHelperText error={Boolean(errors.websiteToLearnAboutUs)}>
+                  {errors.websiteToLearnAboutUs?.message}
                 </FormHelperText>
               </FormControl>
             }
@@ -259,11 +279,11 @@ export default function MailForm() {
                   type="text"
                   required
                   placeholder="稼働時間(フルタイム/〇曜日/週〇時間など)"
-                  {...register("workTime")}
-                  error={Boolean(errors.workTime)}
+                  {...register("workingTime")}
+                  error={Boolean(errors.workingTime)}
                 />
-                <FormHelperText error={Boolean(errors.workTime)}>
-                  {errors.workTime?.message}
+                <FormHelperText error={Boolean(errors.workingTime)}>
+                  {errors.workingTime?.message}
                 </FormHelperText>
               </FormControl>
             }

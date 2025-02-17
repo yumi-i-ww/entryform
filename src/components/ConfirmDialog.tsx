@@ -16,21 +16,23 @@ import {
 import { LabelWidthContent } from "./ui/LabelWidthContent";
 
 // interface ConfirmDialogProps {
-// 	open: boolean;
-// 	loading: boolean;
-// 	inquiryData: Schemas.InquiryCreateRequestSchema;
-// 	handleClose: () => void;
-// 	handleSend: (inquiryData: Schemas.InquiryCreateRequestSchema) => Promise<void>;
+//   open: boolean;
+//   loading: boolean;
+//   inquiryData: Schemas.InquiryCreateRequestSchema;
+//   handleClose: () => void;
+//   handleSend: (
+//     inquiryData: Schemas.InquiryCreateRequestSchema
+//   ) => Promise<void>;
 // }
 interface InquiryCreateRequestSchema {
   familyName: string;
   firstName: string;
-  station: string;
+  nearestStation: string;
   email: string;
   address: string;
-  workTime: string;
-  mediaCategory: string;
-  employCategory: string;
+  workingTime: string;
+  websiteToLearnAboutUs: string;
+  employmentType: string;
   other: string;
 }
 
@@ -52,12 +54,12 @@ export function ConfirmDialog({
   const {
     familyName,
     firstName,
-    station,
+    nearestStation,
     email,
-    workTime,
-    employCategory,
+    workingTime,
+    employmentType,
     address,
-    mediaCategory,
+    websiteToLearnAboutUs,
     other,
   } = inquiryData;
   const [checked, setChecked] = useState<boolean>(false);
@@ -81,11 +83,11 @@ export function ConfirmDialog({
               以下の内容で送信します。内容をご確認ください。
             </Typography>
             <Box display={"flex"} flexDirection={"column"} gap={2}>
-              {employCategory && (
+              {employmentType && (
                 <LabelWidthContent
                   label="応募する雇用形態"
                   content={
-                    <Typography fontSize={18}>{employCategory}</Typography>
+                    <Typography fontSize={18}>{employmentType}</Typography>
                   }
                   isDirectionRow={true}
                 />
@@ -119,33 +121,37 @@ export function ConfirmDialog({
                   isDirectionRow={true}
                 />
               )}
-              {station && (
+              {nearestStation && (
                 <LabelWidthContent
                   label="最寄駅"
-                  content={<Typography fontSize={18}>{station}</Typography>}
-                  isDirectionRow={true}
-                />
-              )}
-              {mediaCategory && (
-                <LabelWidthContent
-                  label="きっかけの媒体"
                   content={
-                    <Typography fontSize={18}>{mediaCategory}</Typography>
+                    <Typography fontSize={18}>{nearestStation}</Typography>
                   }
                   isDirectionRow={true}
                 />
               )}
-              {workTime && (
+              {websiteToLearnAboutUs && (
+                <LabelWidthContent
+                  label="きっかけの媒体"
+                  content={
+                    <Typography fontSize={18}>
+                      {websiteToLearnAboutUs}
+                    </Typography>
+                  }
+                  isDirectionRow={true}
+                />
+              )}
+              {workingTime && (
                 <LabelWidthContent
                   label="稼働時間(フルタイムではない方)"
-                  content={<Typography fontSize={18}>{workTime}</Typography>}
+                  content={<Typography fontSize={18}>{workingTime}</Typography>}
                   isDirectionRow={true}
                 />
               )}
               {other && (
                 <LabelWidthContent
                   label="その他特記事項"
-                  content={<Typography fontSize={18}>{workTime}</Typography>}
+                  content={<Typography fontSize={18}>{workingTime}</Typography>}
                   isDirectionRow={true}
                 />
               )}
