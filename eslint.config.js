@@ -1,28 +1,90 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
-import tseslint from 'typescript-eslint'
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 
-export default tseslint.config(
-  { ignores: ['dist'] },
-  {
-    extends: [js.configs.recommended, ...tseslint.configs.recommended],
-    files: ['**/*.{ts,tsx}'],
-    languageOptions: {
-      ecmaVersion: 2020,
-      globals: globals.browser,
+import { FlatCompat } from "@eslint/eslintrc";
+import typescriptParser from "@typescript-eslint/parser";
+import * as importPlugin from "eslint-plugin-import";
+import globals from "globals";
+
+// NOTE: plugin-importがflatConfigに対応したら削除
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const compat = new FlatCompat({
+  baseDirectory: __dirname,
+});
+
+/** @type {import("eslint").Linter.FlatConfig} */
+const defaultConfig = {
+  name: "default-config",
+  files: ["**/*.js", "**/*.ts", "**/*.jsx", "**/*.tsx"],
+  languageOptions: {
+    globals: {
+      ...globals.browser,
+      ...globals.node,
     },
-    plugins: {
-      'react-hooks': reactHooks,
-      'react-refresh': reactRefresh,
-    },
-    rules: {
-      ...reactHooks.configs.recommended.rules,
-      'react-refresh/only-export-components': [
-        'warn',
-        { allowConstantExport: true },
-      ],
+    parser: typescriptParser,
+  },
+  settings: {
+    react: {
+      version: "detect",
     },
   },
-)
+};
+
+/** @type {import("eslint").Linter.FlatConfig} */
+const importConfig = {
+  name: "import-config",
+  rules: {
+    ...importPlugin.configs.errors.rules,
+    ...importPlugin.configs.warnings.rules,
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
+    "import/no-unresolved": 0,
+    "import/order": [
+      "warn",
+      {
+        alphabetize: {
+          caseInsensitive: true,
+          order: "asc",
+        },
+        groups: [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index",
+          "object",
+          "type",
+        ],
+        "newlines-between": "always",
+        pathGroups: [
+          { pattern: "~/**", group: "parent" },
+          {
+            group: "parent",
+            pattern: "~/components/**",
+          },
+          {
+            group: "type",
+            pattern: "~/types",
+          },
+          {
+            pattern: "{react,react-dom/**,react-router-dom}",
+            group: "builtin",
+            position: "before",
+          },
+        ],
+        pathGroupsExcludedImportTypes: ["builtin"],
+      },
+    ],
+    "no-console": ["warn", { allow: ["error", "warn", "info"] }],
+  },
+};
+
+/** @type {import("eslint").Linter.FlatConfig[]} */
+export default [
+  defaultConfig,
+  ...compat.extends("plugin:import/recommended"),
+  importConfig,
+];

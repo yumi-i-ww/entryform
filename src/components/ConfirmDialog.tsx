@@ -1,7 +1,6 @@
 import type React from "react";
 import { useState } from "react";
 
-import { LoadingButton } from "@mui/lab";
 import {
   Box,
   Button,
@@ -14,34 +13,14 @@ import {
   Typography,
 } from "@mui/material";
 import { LabelWidthContent } from "./ui/LabelWidthContent";
-
-// interface ConfirmDialogProps {
-//   open: boolean;
-//   loading: boolean;
-//   inquiryData: Schemas.InquiryCreateRequestSchema;
-//   handleClose: () => void;
-//   handleSend: (
-//     inquiryData: Schemas.InquiryCreateRequestSchema
-//   ) => Promise<void>;
-// }
-interface InquiryCreateRequestSchema {
-  familyName: string;
-  firstName: string;
-  nearestStation: string;
-  email: string;
-  address: string;
-  workingTime: string;
-  websiteToLearnAboutUs: string;
-  employmentType: string;
-  other: string;
-}
+import type { Schemas } from "~/api/types";
 
 interface ConfirmDialogProps {
   open: boolean;
   loading: boolean;
-  inquiryData: InquiryCreateRequestSchema;
+  inquiryData: Schemas.EntryCreateRequestSchema;
   handleClose: () => void;
-  handleSend: (inquiryData: InquiryCreateRequestSchema) => Promise<void>;
+  handleSend: (inquiryData: Schemas.EntryCreateRequestSchema) => Promise<void>;
 }
 
 export function ConfirmDialog({
@@ -54,12 +33,10 @@ export function ConfirmDialog({
   const {
     familyName,
     firstName,
-    nearestStation,
     email,
-    workingTime,
-    employmentType,
     address,
-    websiteToLearnAboutUs,
+    nearestStation,
+    workingTime,
     other,
   } = inquiryData;
   const [checked, setChecked] = useState<boolean>(false);
@@ -83,16 +60,7 @@ export function ConfirmDialog({
               以下の内容で送信します。内容をご確認ください。
             </Typography>
             <Box display={"flex"} flexDirection={"column"} gap={2}>
-              {employmentType && (
-                <LabelWidthContent
-                  label="応募する雇用形態"
-                  content={
-                    <Typography fontSize={18}>{employmentType}</Typography>
-                  }
-                  isDirectionRow={true}
-                />
-              )}
-              {familyName && (
+              {firstName && (
                 <LabelWidthContent
                   label="名字"
                   content={<Typography fontSize={18}>{familyName}</Typography>}
@@ -126,17 +94,6 @@ export function ConfirmDialog({
                   label="最寄駅"
                   content={
                     <Typography fontSize={18}>{nearestStation}</Typography>
-                  }
-                  isDirectionRow={true}
-                />
-              )}
-              {websiteToLearnAboutUs && (
-                <LabelWidthContent
-                  label="きっかけの媒体"
-                  content={
-                    <Typography fontSize={18}>
-                      {websiteToLearnAboutUs}
-                    </Typography>
                   }
                   isDirectionRow={true}
                 />
@@ -180,14 +137,14 @@ export function ConfirmDialog({
         </DialogContent>
         <DialogActions sx={{ gap: 4, px: 5, pb: 2 }}>
           <Button onClick={handleClose}>キャンセル</Button>
-          <LoadingButton
+          <Button
             loading={loading}
             variant="contained"
             disabled={!checked}
             onClick={() => handleSend(inquiryData)}
           >
             送信
-          </LoadingButton>
+          </Button>
         </DialogActions>
       </Dialog>
     </>

@@ -12,13 +12,14 @@ import {
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  PostInquiryFormValue,
-  postInquirySchema,
-} from "../validation/postInquirySchema";
 import { ConfirmDialog } from "./ConfirmDialog";
 import { LabelWidthContent } from "./ui/LabelWidthContent";
 import { apiClient } from "~/api/api-client";
+import type { Schemas } from "~/api/types";
+import {
+  postInquirySchema,
+  type PostInquiryFormValue,
+} from "~/validation/postInquirySchema";
 
 const employmentType = ["正社員", "契約社員", "アルバイト", "その他"];
 const websiteToLearnAboutUs = [
@@ -40,41 +41,35 @@ export default function MailForm() {
   });
 
   const [open, setOpen] = useState<boolean>(false);
-  const [inquiryData, setInquiryData] = useState<PostInquiryFormValue | null>(
-    null
-  );
+  const [inquiryData, setInquiryData] =
+    useState<Schemas.EntryCreateRequestSchema | null>(null);
   const [isSendLoading, setIsSendLoading] = useState<boolean>(false);
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const handleOpenConfirmDialog = (data: PostInquiryFormValue) => {
     setInquiryData(data);
+
     handleOpen();
   };
 
-  const handleSend = async () => {
+  const handleSend = async (data: Schemas.EntryCreateRequestSchema) => {
+    console.log("handleSend called");
+    console.log("API URL:", apiClient.createEntry);
     try {
       setIsSendLoading(true);
-      // Simulate sending data
       await apiClient.createEntry({
-        requestBody: {
-          familyName: inquiryData?.familyName ?? "",
-          firstName: inquiryData?.firstName ?? "",
-          email: inquiryData?.email ?? "",
-          address: inquiryData?.address ?? "",
-          nearestStation: inquiryData?.nearestStation ?? "",
-          workingTime: inquiryData?.workingTime ?? "",
-          websiteToLearnAboutUs: inquiryData?.websiteToLearnAboutUs ?? "",
-          employmentType: inquiryData?.employmentType ?? "",
-          other: inquiryData?.other ?? "",
-        },
+        requestBody: data,
       });
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      alert("内容を送信しました。");
+      alert("お問い合わせ内容を送信しました。");
     } catch (error) {
       console.error(error);
-      alert("内容送信に失敗しました。");
+      alert("問い合わせに失敗しました。");
     } finally {
       setIsSendLoading(false);
       handleClose();
