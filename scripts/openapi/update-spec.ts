@@ -3,7 +3,8 @@ import * as fs from "node:fs";
 import fetch from "node-fetch-commonjs";
 
 const SPEC_URL =
-  "https://d2s7xq03rh.execute-api.ap-northeast-1.amazonaws.com/dev/swagger?format=json";
+  //envと同じにする
+  "https://f04-contact.f02-nfc.teba-saki.net/dev/swagger?format=json";
 
 async function main() {
   const specRes = await getSpec();

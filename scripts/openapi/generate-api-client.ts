@@ -2,12 +2,6 @@ import * as fs from "fs";
 import { CodeGenerator } from "@himenon/openapi-typescript-code-generator";
 import * as Templates from "@himenon/openapi-typescript-code-generator/dist/templates";
 
-import { fileURLToPath } from "url";
-import path from "path";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
 const main = () => {
   const codeGenerator = new CodeGenerator(`${__dirname}/openapi.json`);
 
