@@ -12,8 +12,8 @@ import {
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ConfirmDialog } from "./ConfirmDialog";
-import { LabelWidthContent } from "./ui/LabelWidthContent";
+import { ConfirmDialog } from "./ConfirmDialog.js";
+import { LabelWidthContent } from "./ui/LabelWidthContent.js";
 import { apiClient } from "~/api/api-client";
 import type { Schemas } from "~/api/types";
 import {
@@ -59,8 +59,6 @@ export default function MailForm() {
   };
 
   const handleSend = async (data: Schemas.EntryCreateRequestSchema) => {
-    console.log("handleSend called");
-    console.log("API URL:", apiClient.createEntry);
     try {
       setIsSendLoading(true);
       await apiClient.createEntry({
