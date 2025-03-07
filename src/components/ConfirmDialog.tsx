@@ -31,6 +31,7 @@ export function ConfirmDialog({
   handleSend,
 }: ConfirmDialogProps): React.ReactElement {
   const {
+    employmentType,
     familyName,
     firstName,
     email,
@@ -47,7 +48,11 @@ export function ConfirmDialog({
   return (
     <>
       <Dialog open={open} onClose={handleClose} maxWidth={"lg"}>
-        <DialogTitle>確認</DialogTitle>
+        <DialogTitle>
+          <Typography variant="h6" component="div" fontWeight="bold">
+            確認
+          </Typography>
+        </DialogTitle>
         <DialogContent
           sx={{
             "&.MuiDialogContent-root": {
@@ -56,18 +61,32 @@ export function ConfirmDialog({
           }}
         >
           <Box>
-            <Typography variant="body1" sx={{ my: 4 }}>
+            <Typography variant="body1" sx={{ my: 0 }}>
               以下の内容で送信します。内容をご確認ください。
             </Typography>
-            <Box display={"flex"} flexDirection={"column"} gap={2}>
-              {firstName && (
+            <Box
+              display={"flex"}
+              flexDirection={"column"}
+              gap={2}
+              sx={{ my: 4 }}
+            >
+              {employmentType && (
+                <LabelWidthContent
+                  label="雇用形態"
+                  content={
+                    <Typography fontSize={18}>{employmentType}</Typography>
+                  }
+                  isDirectionRow={true}
+                />
+              )}
+              {familyName && (
                 <LabelWidthContent
                   label="名字"
                   content={<Typography fontSize={18}>{familyName}</Typography>}
                   isDirectionRow={true}
                 />
               )}
-              {familyName && (
+              {firstName && (
                 <LabelWidthContent
                   label="名前"
                   content={<Typography fontSize={18}>{firstName}</Typography>}
@@ -100,7 +119,7 @@ export function ConfirmDialog({
               )}
               {workingTime && (
                 <LabelWidthContent
-                  label="稼働時間(フルタイムではない方)"
+                  label="稼働時間"
                   content={<Typography fontSize={18}>{workingTime}</Typography>}
                   isDirectionRow={true}
                 />
@@ -108,13 +127,13 @@ export function ConfirmDialog({
               {other && (
                 <LabelWidthContent
                   label="その他特記事項"
-                  content={<Typography fontSize={18}>{workingTime}</Typography>}
+                  content={<Typography fontSize={18}>{other}</Typography>}
                   isDirectionRow={true}
                 />
               )}
             </Box>
             <Box>
-              <Typography sx={{ my: 2 }}>
+              <Typography sx={{ my: 0 }}>
                 *のついている項目は必ずチェックをお願いいたします。
               </Typography>
               <FormControlLabel

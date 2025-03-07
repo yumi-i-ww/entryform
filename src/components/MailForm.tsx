@@ -106,15 +106,9 @@ export default function MailForm() {
             <Typography variant="h4">{"エントリーフォーム"}</Typography>
           </Box>
           <Box sx={{ my: 2, textAlign: "left" }}>
-            {/* 文言は変える */}
             <Typography sx={{ my: 3 }}>
               エントリーは、下記のフォームに必要事項をご記入の上、「確認する」ボタンを押してください。
             </Typography>
-            {/* <Box sx={{ fontSize: "small" }}>
-              <Typography>
-                ※ご入力いただいた内容に関しましては、採用活動のために利用させていただきます。
-              </Typography>
-            </Box> */}
           </Box>
         </Box>
         <Box
