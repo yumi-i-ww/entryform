@@ -64,10 +64,10 @@ export default function MailForm() {
       await apiClient.createEntry({
         requestBody: data,
       });
-      alert("お問い合わせ内容を送信しました。");
+      alert("エントリー内容を送信しました。");
     } catch (error) {
       console.error(error);
-      alert("問い合わせに失敗しました。");
+      alert("エントリー送信に失敗しました。");
     } finally {
       setIsSendLoading(false);
       handleClose();

@@ -4,7 +4,7 @@ import fetch from "node-fetch-commonjs";
 
 const SPEC_URL =
   //envと同じにする
-  "https://f04-contact.f02-nfc.teba-saki.net/dev/swagger?format=json";
+  "https://t01.teba-saki.net/Prod/swagger?format=json";
 
 async function main() {
   const specRes = await getSpec();
