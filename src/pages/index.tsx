@@ -1,9 +1,9 @@
-import MailForm from "../components/MailForm";
+import EntryForm from "../components/EntryForm";
 
 export default function IndexPage() {
   return (
     <>
-      <MailForm />
+      <EntryForm />
     </>
   );
 }

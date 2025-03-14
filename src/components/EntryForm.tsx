@@ -31,7 +31,7 @@ const websiteToLearnAboutUs = [
 ];
 const CustomTextField = styled(TextField)(() => ({}));
 
-export default function MailForm() {
+export default function EntryForm() {
   const {
     register,
     handleSubmit,
@@ -39,7 +39,6 @@ export default function MailForm() {
   } = useForm<PostInquiryFormValue>({
     resolver: zodResolver(postInquirySchema),
   });
-
   const [open, setOpen] = useState<boolean>(false);
   const [inquiryData, setInquiryData] =
     useState<Schemas.EntryCreateRequestSchema | null>(null);
@@ -64,7 +63,6 @@ export default function MailForm() {
       await apiClient.createEntry({
         requestBody: data,
       });
-      alert("エントリー内容を送信しました。");
     } catch (error) {
       console.error(error);
       alert("エントリー送信に失敗しました。");
