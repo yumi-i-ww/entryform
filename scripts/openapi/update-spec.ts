@@ -2,9 +2,11 @@ import * as fs from "node:fs";
 
 import fetch from "node-fetch-commonjs";
 
+// const SPEC_URL =
+//envと同じにする
+// "https://t01.teba-saki.net/Prod/swagger?format=json";
 const SPEC_URL =
-  //envと同じにする
-  "https://t01.teba-saki.net/Prod/swagger?format=json";
+  "https://f04-contact.f02-nfc.teba-saki.net/dev/swagger?format=json";
 
 async function main() {
   const specRes = await getSpec();
@@ -20,7 +22,7 @@ async function getSpec() {
     method: "GET",
     headers: {
       Accept: "application/json",
-      "x-api-key": "IDwp2q4wpY5jmDpaCQEGc4EvtecHP7u026zNkti6",
+
       // Authorization: `Basic ${authString}`,
     },
   });

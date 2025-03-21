@@ -20,6 +20,7 @@ import {
   postInquirySchema,
   type PostInquiryFormValue,
 } from "~/validation/postInquirySchema";
+import { useNavigate } from "react-router-dom";
 
 const employmentType = ["正社員", "契約社員", "アルバイト", "その他"];
 const websiteToLearnAboutUs = [
@@ -43,6 +44,7 @@ export default function EntryForm() {
   const [inquiryData, setInquiryData] =
     useState<Schemas.EntryCreateRequestSchema | null>(null);
   const [isSendLoading, setIsSendLoading] = useState<boolean>(false);
+  const navigate = useNavigate();
 
   const handleOpen = () => {
     setOpen(true);
@@ -63,6 +65,7 @@ export default function EntryForm() {
       await apiClient.createEntry({
         requestBody: data,
       });
+      navigate("/EntrySuccess");
     } catch (error) {
       console.error(error);
       alert("エントリー送信に失敗しました。");
