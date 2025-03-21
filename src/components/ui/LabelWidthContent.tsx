@@ -16,7 +16,7 @@ export function LabelWidthContent(
 
   return (
     <Box display={"flex"} flexDirection={isDirectionRow ? "row" : "column"}>
-      <Typography minWidth={200} textAlign={"center"}>
+      <Typography minWidth={200} textAlign={"left"}>
         {label}
       </Typography>
       <Box width={"100%"}>{content}</Box>
