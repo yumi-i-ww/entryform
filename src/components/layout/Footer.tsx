@@ -11,7 +11,9 @@ export const Footer = () => {
         borderTop: "1px solid #ddd",
       }}
     >
-      <Typography>Copyright © 2024 Tsubasa co., Ltd.</Typography>
+      <Typography>
+        Copyright © {new Date().getFullYear()} Tsubasa co., Ltd.
+      </Typography>
     </Box>
   );
 };
